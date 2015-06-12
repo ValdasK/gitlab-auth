@@ -1,0 +1,27 @@
+{
+    "name": "valdask/gitlab-auth",
+    "description": "Simple Gitlab Oauth wrapper for PHP",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Valdas Kalvaitis",
+            "email": "valdas@kalvaitis.eu"
+        }
+    ],
+    "minimum-stability": "stable",
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": {
+            "GitlabAuth\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "guzzlehttp/guzzle": "~4.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0"
+    }
+}

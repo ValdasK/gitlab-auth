@@ -1,0 +1,4 @@
+suites:
+    gitlab_auth_suite:
+        namespace: GitlabAuth
+        psr4_prefix: GitlabAuth
