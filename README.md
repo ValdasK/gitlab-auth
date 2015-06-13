@@ -7,18 +7,15 @@ The main purpose of this package is to authenticate users in your application us
 
 On your login page:
 ```php
-$lib = new \GitlabAuth\Auth("http://mygitlab.com", "app id", "app secret", "http://myapp.com/do-login");
-$authorizationUrl = $lib->getLoginRedirectUrl();
-header('Location: ' . $authorizationUrl);
-exit;
+$lib = new \GitlabAuth\Auth(new GuzzleHttp\Client(), "http://mygitlab.com", "app id", "app secret", "http://myapp.com/do-login");
+header('Location: ' . $lib->getLoginRedirectUrl()); exit;
 ```
 
 on "http://myapp.com/do-login" page:
 
 ```php
-$lib = new \GitlabAuth\Auth("http://mygitlab.com", "app id", "app secret", "http://myapp.com/do-login");
-$userDetais = $lib->getUserByCode($_GET['code']);
-var_dump($userDetails); die;
+$lib = new \GitlabAuth\Auth(new GuzzleHttp\Client(), "http://mygitlab.com", "app id", "app secret", "http://myapp.com/do-login");
+var_dump($lib->getUserByCode($_GET['code'])); exit;
 ```
 
 ## Full how-to guide
@@ -30,7 +27,7 @@ To initialize this library, create new instance of GitlabAuth\Auth.
 Guide how to create application ID and secret can be found here: http://doc.gitlab.com/ce/integration/oauth_provider.html
 
 ```php
-$lib = new \GitlabAuth\Auth("http://mygitlab.com", "app id", "app secret", "http://myapp.com/do-login");
+$lib = new \GitlabAuth\Auth(new GuzzleHttp\Client(), "http://mygitlab.com", "app id", "app secret", "http://myapp.com/do-login");
 ```
 
 ### 2. Retrieving authorization URL
@@ -48,6 +45,8 @@ You can use this URL in link and present it to user or just use proper redirect 
 
 When user visits authorization page, he can choose whether to accept or deny authorization. After action is chosen, he is redirected back to redirect url (set in library initialization step), with GET parameter named "code".
 This is used to retrieve auth token from Gitlab server, and then using that auth token user details are retrievied from Gitlab API.
+
+Tip: do not forget to check if *$_GET['error']* exists, if it does, that means that user declined the request and should not be authorized.
 
 ```php
 $userDetais = $lib->getUserByCode($_GET['code']);
