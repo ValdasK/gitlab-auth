@@ -1,7 +1,7 @@
 # gitlab-auth
-Simple Gitlab Oauth wrapper to receive user data.
+Simple Gitlab Oauth wrapper to receive user information, such as email.
 
-The main purpose of this package is to authenticate users in your application using Gitlab application. 
+The main purpose of this package is to retrieve user info from Gitlab, simplifying user login and registration proccess.
 
 ## Quick use
 
@@ -46,7 +46,7 @@ You can use this URL in link and present it to user or just use proper redirect 
 When user visits authorization page, he can choose whether to accept or deny authorization. After action is chosen, he is redirected back to redirect url (set in library initialization step), with GET parameter named "code".
 This is used to retrieve auth token from Gitlab server, and then using that auth token user details are retrievied from Gitlab API.
 
-Tip: do not forget to check if *$_GET['error']* exists, if it does, that means that user declined the request and should not be authorized.
+Tip: do not forget to check if *$_GET['error']* exists, and if it does that means user declined the request and should not be authorized.
 
 ```php
 $userDetais = $lib->getUserByCode($_GET['code']);
